@@ -1,6 +1,8 @@
 package com.example.basicapplication
 
+import android.app.DatePickerDialog
 import android.content.Intent
+import android.icu.util.Calendar
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -8,12 +10,16 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class EntryActivity : AppCompatActivity() {
     lateinit var btnBack: Button
     lateinit var txtViewDetail: TextView
     lateinit var btnEntrySubmit: Button
     lateinit var spinnerCity: Spinner
+    lateinit var txtDOB: TextView
+    var selectedDOB = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +29,7 @@ class EntryActivity : AppCompatActivity() {
         txtViewDetail=findViewById(R.id.txtViewDetail)
         btnEntrySubmit=findViewById(R.id.btnEntrySubmit)
         spinnerCity=findViewById(R.id.spinnerCity)
+        txtDOB=findViewById(R.id.txtDOB)
 
         val data=intent.extras
         var msg=data?.getString("msg")
@@ -39,8 +46,11 @@ class EntryActivity : AppCompatActivity() {
         }
         //spinner
         val cityList=listOf("Select Your City","Yangon","Mandalay","Bago","Bagan")
-        val adapter= ArrayAdapter(this,android.R.layout.simple_spinner_item,cityList)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//        val adapter= ArrayAdapter(this,android.R.layout.simple_spinner_item,cityList)
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val adapter= ArrayAdapter(this,R.layout.custom_spinner_item,cityList)
+        adapter.setDropDownViewResource(R.layout.custom_spinner_drop_down_item)
+
         spinnerCity.adapter=adapter
 
         btnEntrySubmit.setOnClickListener {
@@ -53,7 +63,26 @@ class EntryActivity : AppCompatActivity() {
             }
         }
 
+        // DatePickerDialog
+
+        txtDOB.setOnClickListener {
+            showDatePickerDialog()
+        }
+
+
 
 
     }//on create
+    private fun showDatePickerDialog() {
+        val calendar = Calendar.getInstance()
+        val datePickerDialog = DatePickerDialog(this, {_,y,m,d ->
+//            selectedDOB = "$y / ${m+1} / $d"
+            val c = Calendar.getInstance()
+            c.set(y, m, d)
+            val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            selectedDOB = dateFormat.format(c.time)
+            txtDOB.text = selectedDOB
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+        datePickerDialog.show()
+    }
 }//end class

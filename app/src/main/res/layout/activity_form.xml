@@ -94,6 +94,34 @@
 
     </RadioGroup>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupSection">
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/arts"
+            android:text="Arts"
+            android:textSize="18sp"
+            />
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sports"
+            android:text="Sports"
+            android:textSize="18sp"
+            />
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/music"
+            android:text="Music"
+            android:textSize="18sp"
+            />
+    </LinearLayout>
+
     <Button
         android:id="@+id/btnFormSubmit"
         android:layout_width="wrap_content"
