@@ -16,10 +16,10 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".EntryActivity"
+            android:name=".FormActivity"
             android:exported="false" />
         <activity
-            android:name=".FormActivity"
+            android:name=".EntryActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
